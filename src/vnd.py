@@ -6,15 +6,15 @@ def VND (mesa,matrix_afinidade):
   k = 1
   while (k<=r):
     if (k == 1):
-      copia_VND = swap_solution(mesa,matrix_afinidade )
-    elif (k==2):
       copia_VND = Reinsertion(mesa,matrix_afinidade)
+    elif (k==2):
+      copia_VND = swap_solution(mesa,matrix_afinidade )
 
 
 
     if (solution(copia_VND,matrix_afinidade)>solution(mesa,matrix_afinidade)):
       if(k==2):
-        print("Reinsertion encontrou uma solução melhor, voltando ao swap")
+        print("swap encontrou uma solução melhor, voltando ao Reinsertion")
       mesa = copia_VND.copy()
       k = 1
     else:
