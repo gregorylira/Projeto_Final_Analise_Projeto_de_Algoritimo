@@ -6,9 +6,9 @@ def VND (mesa,matrix_afinidade):
   k = 1
   while (k<=r):
     if (k == 1):
-      copia_VND = Reinsertion(mesa,matrix_afinidade)
-    elif (k==2):
       copia_VND = swap_solution(mesa,matrix_afinidade )
+    elif (k==2):
+      copia_VND = Reinsertion(mesa,matrix_afinidade)
 
 
 

@@ -13,12 +13,7 @@ def get_mesa(indice,grafo):
             return n
             
 def nodes_edg(nome_mesa,grafo):
-    mesa_brut = list(grafo.edges)
-    lista = []
-    for n in mesa_brut:
-        if (n[0] == nome_mesa):
-            lista.append(n[1])
-    return lista
+    return list(grafo.neighbors(nome_mesa))
 
 def solution(sol, matrix_afinidade):
     soma = 0

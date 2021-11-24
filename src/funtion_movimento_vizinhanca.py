@@ -17,11 +17,9 @@ def swap_solution(main, matrix_afinidade):
           break
         for t in nodes_edg(k,copia):
           if((j,t) in pares or (t,j) in pares):
-            # print(f"{i}")
             continue
           pares.append((j,t))
           pares.append((t,j))
-          # print(f'[{i}][{j}] -> [{k}][{t}]')
 
           
           copia.remove_edge(i,j)
