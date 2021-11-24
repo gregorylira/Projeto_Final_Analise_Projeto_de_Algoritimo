@@ -90,6 +90,16 @@ for i in instancias:
 
   linha_vnd.append([otimo_list_vnd[interacao],vnd_List[interacao],tempo_list_vnd[interacao],gap_list_vnd[interacao]])
 
+  plt.figure(figsize=(15, 15))
+  nx.draw(solucao_final_VND ,with_labels=True,node_color="black",node_size=3250,width=1.6, font_color="white",font_weight='bold' )
+  plt.savefig(f'../plots/solutions/instancia_{interacao}.png', format='png')
+  plt.close()
+
+  plt.figure(figsize=(15, 15))
+  nx.draw(mesa ,with_labels=True,node_color="black",node_size=3250,width=1.6, font_color="white",font_weight='bold' )
+  plt.savefig(f'../plots/heuristica/instancia_{interacao}.png', format='png')
+  plt.close()
+
   index.append(f"instancia_{interacao}")
   interacao += 1
 

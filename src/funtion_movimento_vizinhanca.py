@@ -29,7 +29,9 @@ def swap_solution(main, matrix_afinidade):
 
           copia.add_edge(i,t)
           copia.add_edge(k,j)
+    
           solucao_parcial = solution(copia,matrix_afinidade)
+          
           if (solucao_swap < solucao_parcial):
             solucao_swap = solucao_parcial
             copia_reserved = copia.copy()
