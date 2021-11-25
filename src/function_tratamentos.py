@@ -1,10 +1,7 @@
+
+
 def get_quantidade_alocada(nome_mesa,grafo):
-    contador = 0
-    mesa_brut = list(grafo.edges)
-    for n in list(grafo.edges):
-      if (n.count(nome_mesa)):
-        contador +=1
-    return contador
+    return grafo.degree(nome_mesa)
 
 def get_mesa(indice,grafo):
     mesa_brut = list(grafo.edges)
@@ -40,3 +37,14 @@ def Matriz_afinidade (festinhaFelas,quant_convidados):
 
         matrix_afinidade.append(afinidade_list)
     return matrix_afinidade
+
+def afin_mesa_local(removido,lista_pessoas_sentadas,matrix_afinidade):
+  afinidade = 0
+
+  for j in lista_pessoas_sentadas:
+    if (j==removido):
+      continue
+
+    afinidade += matrix_afinidade[removido][j]
+
+  return afinidade
