@@ -1,15 +1,16 @@
 from function_movimento_vizinhanca import *
 from function_tratamentos import *
 
-def VND (mesa,matrix_afinidade):
-  r = 2
+def VND (mesa,matrix_afinidade,ja_sentou,quant_convidados):
+  r = 3
   k = 1
   while (k<=r):
     if (k == 1):
       copia_VND = Reinsertion(mesa,matrix_afinidade)
     elif (k==2):
       copia_VND = swap(mesa,matrix_afinidade)
-
+    elif (k==3):
+      copia_VND = Mesa_furada(mesa,ja_sentou,matrix_afinidade,quant_convidados)
 
 
     if (solution(copia_VND,matrix_afinidade)>solution(mesa,matrix_afinidade)):

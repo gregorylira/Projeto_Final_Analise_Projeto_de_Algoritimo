@@ -31,7 +31,7 @@ def Perturbacao(grafo,nivel = 1):
 
 
 
-def ILS (execucoes,vnd_teste,matrix_afinidade):
+def ILS (execucoes,vnd_teste,matrix_afinidade,ja_sentou,quant_convidados):
   copia_vnd_teste = vnd_teste.copy()
   numero_melhoras = 100
 
@@ -42,8 +42,9 @@ def ILS (execucoes,vnd_teste,matrix_afinidade):
     copia_vnd_teste = vnd_teste.copy()
     beneficio = solution(copia_vnd_teste,matrix_afinidade)
     while(numero_melhoras > 0):
-      teste = Perturbacao(copia_vnd_teste,5)
-      teste2 = VND (teste,matrix_afinidade)
+      teste = Perturbacao(copia_vnd_teste,2)
+      teste2 = VND (teste,matrix_afinidade, ja_sentou,quant_convidados)
+
       if(solution(teste2,matrix_afinidade)>beneficio):
         beneficio = solution(teste2,matrix_afinidade)
         copia_vnd_teste = teste2.copy()

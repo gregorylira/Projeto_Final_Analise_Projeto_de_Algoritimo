@@ -180,3 +180,57 @@ def Reinsertion (grafo,matrix_afinidade):
   else:
     return copia.copy()
 
+
+
+def Mesa_furada(grafo,ja_sentou,matrix_afinidade,quant_convidados):
+  copia_sentados = ja_sentou.copy()
+  copia = grafo.copy()
+  beneficio = solution(copia,matrix_afinidade)
+  for i in list(copia.nodes()):
+    em_pe = nodes_edg(i,copia)
+    copia.remove_node(i)
+    copia.add_node(i)
+
+    for j in em_pe:
+      copia_sentados.pop(copia_sentados.index(j))
+
+    mais_afim = -999
+    indice_maior = []
+    indice_maior_local = []
+    for k in em_pe:
+      for j in em_pe:
+        if (k==j):
+          continue
+        if (matrix_afinidade[k][j] > mais_afim):
+          mais_afim = matrix_afinidade[k][j]
+          indice_maior = [k,j]
+
+    copia.add_edge(i,indice_maior[0])
+    copia.add_edge(i,indice_maior[1])
+
+    copia_sentados.append(indice_maior[0])
+    copia_sentados.append(indice_maior[1])
+    
+    while(len(copia_sentados)<quant_convidados):
+      mais_afim = -9999
+      for i in em_pe:
+        if (i in copia_sentados):
+          continue
+        for j in list(copia.nodes()):
+          if (not isinstance(j,str)):
+            break
+          afinidade_na_mesa = afin_mesa_local(i,nodes_edg(j,copia),matrix_afinidade)
+          if (afinidade_na_mesa > mais_afim):
+            mais_afim = afinidade_na_mesa
+            indice_maior_local = [i,j]
+
+        copia.add_edge(indice_maior_local[1],indice_maior_local[0])
+        copia_sentados.append(indice_maior_local[0])
+
+   
+    
+    if (solution(copia,matrix_afinidade) > beneficio):
+      return copia.copy()
+    else:
+      return grafo.copy()
+      
