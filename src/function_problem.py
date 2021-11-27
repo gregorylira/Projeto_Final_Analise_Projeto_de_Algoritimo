@@ -33,21 +33,20 @@ def grafo_afinidades(quant_convidados,festinhaFelas,afinidade,pessoas,passei):
 def senta_Dupla (mesa,afin_max,pessoas,afinidade,ja_sentou):
     for i in list(mesa):
         if (int(mesa.nodes[i]["menorCadeira"]/2)):
-            for j in range(int(mesa.nodes[i]["menorCadeira"]/2)):
-                while(1):
-                    maior = afin_max.pop(0)
-                    ovo_sentar = pessoas[afinidade.index(maior)]
-                    pessoas.pop(afinidade.index(maior))
-                    afinidade.pop(afinidade.index(maior))
-                    if (ovo_sentar[0] not in ja_sentou and ovo_sentar[1] not in ja_sentou):
-                        mesa.add_edge(i,ovo_sentar[0])
-                        mesa.add_edge(i,ovo_sentar[1])
-                        ja_sentou.append(ovo_sentar[0])
-                        ja_sentou.append(ovo_sentar[1])
-                        break
-                
-                    else:
-                        continue
+          while(1):
+              maior = afin_max.pop(0)
+              ovo_sentar = pessoas[afinidade.index(maior)]
+              pessoas.pop(afinidade.index(maior))
+              afinidade.pop(afinidade.index(maior))
+              if (ovo_sentar[0] not in ja_sentou and ovo_sentar[1] not in ja_sentou):
+                  mesa.add_edge(i,ovo_sentar[0])
+                  mesa.add_edge(i,ovo_sentar[1])
+                  ja_sentou.append(ovo_sentar[0])
+                  ja_sentou.append(ovo_sentar[1])
+                  break
+          
+              else:
+                  continue
         else:
             if (int(mesa.nodes[i]["maiorCadeira"]/2)):
                 for j in range(int(mesa.nodes[i]["maiorCadeira"]/2)):

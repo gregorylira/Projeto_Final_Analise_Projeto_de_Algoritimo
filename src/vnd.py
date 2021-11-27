@@ -1,4 +1,4 @@
-from funtion_movimento_vizinhanca import *
+from function_movimento_vizinhanca import *
 from function_tratamentos import *
 
 def VND (mesa,matrix_afinidade):

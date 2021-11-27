@@ -1,7 +1,8 @@
-from funtion_problem import *
+from function_problem import *
 from read_problem import *
-from funtion_movimento_vizinhanca import *
+from function_movimento_vizinhanca import *
 from function_tratamentos import *
+from meta_heuristica import *
 from vnd import *
 import time
 
@@ -22,6 +23,13 @@ otimo_list_vnd = []
 tempo_list_vnd = []
 gap_list_vnd = []
 linha_vnd = []
+
+ils_List = []
+otimo_list_ils = []
+tempo_list_ils = []
+gap_list_ils = []
+linha_ils = []
+
 
 index = []
 interacao = 0
@@ -50,7 +58,8 @@ for i in instancias:
   grafo_afinidades(quant_convidados,festinhaFelas,afinidade,pessoas,passei)
 
   matrix_afinidade = Matriz_afinidade(festinhaFelas,quant_convidados)
-
+  print("~~"*32)
+  print(f"Iniciando Instancia {interacao}")
   start_time_heuristic = time.time()
   #INICIO DA HEURISTICA CONSTRUTIVA
   # Preenchendo valor minimo das mesas com as duplas de maiores afinidades da lista de afinidades
@@ -72,6 +81,7 @@ for i in instancias:
   otimo_list_heuristic.append(0)
   gap_list_heuristic.append(0)
 
+  print(f"Heuristica Concluida, iniciando vnd")
 
 
   #INICIO DO VND
@@ -84,11 +94,25 @@ for i in instancias:
   otimo_list_vnd.append(0)
   gap_list_vnd.append(0)
 
+  print(f"VND concluido, iniciando ILS (Meta Heuristica)")
+
+  #INICIO META_HEURISTICA
+  start_time_ils = time.time()
+  result_ils = ILS(3,solucao_final_VND,matrix_afinidade)
+  end_time_ils = time.time()
+
+  ils_List.append(solution(result_ils,matrix_afinidade))
+  tempo_list_ils.append(round(end_time_ils-start_time_ils))
+  otimo_list_ils.append(0)
+  gap_list_ils.append(0)
+  print(f"ILS concluido")
 
 
   linha_heuristic.append([otimo_list_heuristic[interacao],heuristica_List[interacao],tempo_list_heuristic[interacao],gap_list_heuristic[interacao]])
 
   linha_vnd.append([otimo_list_vnd[interacao],vnd_List[interacao],tempo_list_vnd[interacao],gap_list_vnd[interacao]])
+  
+  linha_ils.append([otimo_list_ils[interacao],ils_List[interacao],tempo_list_ils[interacao],gap_list_ils[interacao]])
 
   plt.figure(figsize=(15, 15))
   nx.draw(solucao_final_VND ,with_labels=True,node_color="black",node_size=3250,width=1.6, font_color="white",font_weight='bold' )
@@ -105,6 +129,7 @@ for i in instancias:
 
 df_heuristica = pd.DataFrame(linha_heuristic, columns = ['Otimo','Valor_Solução', "Tempo", "gap"], index=[index])
 df_vnd = pd.DataFrame(linha_vnd, columns = ['Otimo','Valor_Solução', "Tempo", "gap"], index=[index])
+df_ils = pd.DataFrame(linha_ils, columns = ['Otimo','Valor_Solução', "Tempo", "gap"], index=[index])
 
 print("~~"*32)
 print("Heuristica Construtiva")
@@ -112,4 +137,7 @@ print(df_heuristica)
 print("~~"*32)
 print("VND")
 print(df_vnd)
+print("~~"*32)
+print("ILS")
+print(df_ils)
 print("~~"*32)

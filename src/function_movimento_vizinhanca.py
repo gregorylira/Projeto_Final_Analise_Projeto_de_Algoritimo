@@ -1,4 +1,4 @@
-from funtion_problem import *
+from function_problem import *
 
 def swap_solution(main, matrix_afinidade):
   pares = []
