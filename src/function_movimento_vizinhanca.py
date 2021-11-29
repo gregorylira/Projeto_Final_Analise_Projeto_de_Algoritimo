@@ -211,7 +211,7 @@ def Mesa_furada(grafo,ja_sentou,matrix_afinidade,quant_convidados):
     copia_sentados.append(indice_maior[0])
     copia_sentados.append(indice_maior[1])
     
-    while(len(copia_sentados)<quant_convidados):
+    while(len(copia_sentados)<quant_convidados): #da pra utilizar o reinsertion mas dessa forma ta mais otimizado
       mais_afim = -9999
       for i in em_pe:
         if (i in copia_sentados):

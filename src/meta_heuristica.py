@@ -43,7 +43,7 @@ def ILS (execucoes,vnd_teste,matrix_afinidade,ja_sentou,quant_convidados):
     beneficio = solution(copia_vnd_teste,matrix_afinidade)
     while(numero_melhoras > 0):
       teste = Perturbacao(copia_vnd_teste,2)
-      teste2 = VND (teste,matrix_afinidade, ja_sentou,quant_convidados)
+      teste2 = VND (teste,matrix_afinidade)
 
       if(solution(teste2,matrix_afinidade)>beneficio):
         beneficio = solution(teste2,matrix_afinidade)

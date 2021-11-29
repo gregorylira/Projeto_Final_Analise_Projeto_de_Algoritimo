@@ -15,10 +15,14 @@ def nodes_edg(nome_mesa,grafo):
 def solution(sol, matrix_afinidade):
     soma = 0
     for i in list(sol):
+        visitados = []
         for j in nodes_edg(i,sol):
             for k in nodes_edg(i,sol):
                 if(j==k):
                     continue
+                if((k,j) in visitados or (j,k) in visitados):
+                    continue
+                visitados.append((k,j))
 
                 soma += matrix_afinidade[j][k]
     return soma
