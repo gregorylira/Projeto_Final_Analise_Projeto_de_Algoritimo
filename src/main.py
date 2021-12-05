@@ -48,16 +48,28 @@ instancias = [
   "../instancias/n50c8_B.txt",
   ]
 
+otimos = [
+  245,
+  180,
+  245,
+  665,
+  386,
+  0,
+  0,
+  0,
+  0,
+  0,
+]
+
 for i in instancias:
   quant_convidados,quant_mesas,lista_limite_mesa,lista_beneficio, pessoas, afinidade , afin_max = init_problem(i)
 
-  festinhaFelas, mesa = init_networkx ( quant_convidados, quant_mesas, lista_limite_mesa )
+  mesa = init_networkx ( quant_mesas, lista_limite_mesa )
 
   # Preenchendo grafo com suas afinidades 
-  passei = []
-  grafo_afinidades(quant_convidados,festinhaFelas,afinidade,pessoas,passei)
 
-  matrix_afinidade = Matriz_afinidade(festinhaFelas,quant_convidados)
+  matrix_afinidade = matrizAfinidade(quant_convidados,afinidade,pessoas)
+
   print("~~"*32)
   print(f"Iniciando Instancia {interacao}")
   start_time_heuristic = time.time()
@@ -78,33 +90,42 @@ for i in instancias:
   heuristica_local = solution(mesa,matrix_afinidade)
   heuristica_List.append(heuristica_local)
   tempo_list_heuristic.append(round(end_time_heuristic - start_time_heuristic,3))
-  otimo_list_heuristic.append(0)
-  gap_list_heuristic.append(0)
+  otimo_list_heuristic.append(otimos[interacao])
+  if(otimos[interacao]!=0):
+    gap_list_heuristic.append(f"{round(((heuristica_local - otimos[interacao])/otimos[interacao])*100,2)}%")
+  else:
+    gap_list_heuristic.append(0)
 
   print(f"Heuristica Concluida, iniciando vnd")
 
-
   #INICIO DO VND
   start_time_vnd = time.time()
-  solucao_final_VND = VND(mesa,matrix_afinidade)
+  solucao_final_VND,ja_passou_mesa = VND(mesa,matrix_afinidade,ja_sentou,quant_convidados)
   end_time_vnd = time.time()
 
   vnd_List.append(solution(solucao_final_VND,matrix_afinidade))
   tempo_list_vnd.append(round(end_time_vnd - start_time_vnd,3))
-  otimo_list_vnd.append(0)
-  gap_list_vnd.append(0)
+  otimo_list_vnd.append(otimos[interacao])
+  if(otimos[interacao]!=0):
+    gap_list_vnd.append(f"{round(((vnd_List[interacao] - otimos[interacao])/otimos[interacao])*100,2)}%")
+  else:
+    gap_list_vnd.append(0)
 
   print(f"VND concluido, iniciando ILS (Meta Heuristica)")
 
   #INICIO META_HEURISTICA
   start_time_ils = time.time()
-  result_ils = ILS(3,solucao_final_VND,matrix_afinidade,ja_sentou,quant_convidados)
+  result_ils = ILS(3,solucao_final_VND,matrix_afinidade,ja_sentou,quant_convidados,ja_passou_mesa)
   end_time_ils = time.time()
 
   ils_List.append(solution(result_ils,matrix_afinidade))
   tempo_list_ils.append(round(end_time_ils-start_time_ils))
-  otimo_list_ils.append(0)
-  gap_list_ils.append(0)
+  otimo_list_ils.append(otimos[interacao])
+  if(otimos[interacao]!=0):
+    gap_list_ils.append(f"{round(((ils_List[interacao] - otimos[interacao])/otimos[interacao])*100,2)}%")
+  else:
+    gap_list_ils.append(0)
+
   print(f"ILS concluido")
 
 

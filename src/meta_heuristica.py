@@ -31,19 +31,20 @@ def Perturbacao(grafo,nivel = 1):
 
 
 
-def ILS (execucoes,vnd_teste,matrix_afinidade,ja_sentou,quant_convidados):
+def ILS (execucoes,vnd_teste,matrix_afinidade,ja_sentou,quant_convidados,ja_passou_mesa = []):
   copia_vnd_teste = vnd_teste.copy()
   numero_melhoras = 100
 
   execucoes = 3
   melhor_dos_melhores = 0
-
+  
   while(execucoes > 0):
     copia_vnd_teste = vnd_teste.copy()
     beneficio = solution(copia_vnd_teste,matrix_afinidade)
+
     while(numero_melhoras > 0):
       teste = Perturbacao(copia_vnd_teste,2)
-      teste2 = VND (teste,matrix_afinidade)
+      teste2,ja_passou_mesa = VND (teste,matrix_afinidade,ja_sentou,quant_convidados,ja_passou_mesa)
 
       if(solution(teste2,matrix_afinidade)>beneficio):
         beneficio = solution(teste2,matrix_afinidade)

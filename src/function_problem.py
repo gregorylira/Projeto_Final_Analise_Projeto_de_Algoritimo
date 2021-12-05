@@ -2,32 +2,52 @@ import networkx as nx
 from function_tratamentos import *
 
 
-def init_networkx (quant_convidados, quant_mesas,lista_limite_mesa):
-    festinhaFelas = nx.Graph()    
+def init_networkx (quant_mesas,lista_limite_mesa):
+
     mesa = nx.Graph()
-    for i in range(quant_convidados):
-        festinhaFelas.add_node(i)
 
     for i in range(quant_mesas):
         mesa.add_node(f"mesa_{i}",menorCadeira = lista_limite_mesa[i][0], maiorCadeira = lista_limite_mesa[i][1])
     
-    return festinhaFelas.copy(), mesa.copy()
+    return mesa.copy()
 
-def grafo_afinidades(quant_convidados,festinhaFelas,afinidade,pessoas,passei):
+def matrizAfinidade(quant_convidados,afinidade,pessoas,passei=[]):
+    matrix_afinidade = []
     for i in range(quant_convidados):
+        afinidade_list = []
         for j in range(quant_convidados):
             if (i==j):
+                afinidade_list.append(None)
                 continue
-            festinhaFelas.add_edge(i,j)
+            # festinhaFelas.add_edge(i,j)
             if ((i,j) in pessoas ):
-                festinhaFelas.edges[i,j]["afinidade"] = afinidade[pessoas.index((i,j))]
-                passei.append((j,i))
+                # festinhaFelas.edges[i,j]["afinidade"] = afinidade[pessoas.index((i,j))]
+                # passei.append((j,i))
+                f = afinidade[pessoas.index((i,j))]
+                afinidade_list.append(f)
+                passei.append((i,j))
             else:
-                if ((i,j) in passei):
-                    continue
-                festinhaFelas.edges[i,j]["afinidade"] = 0
+                if((j,i) in pessoas):
+                    afinidade_list.append(afinidade[pessoas.index((j,i))])
+                # festinhaFelas.edges[i,j]["afinidade"] = 0
+                else: afinidade_list.append(0)
+        matrix_afinidade.append(afinidade_list)
+    return matrix_afinidade
 
+# def Matriz_afinidade (festinhaFelas,quant_convidados):
+#     matrix_afinidade = []
+#     for i in range(quant_convidados):
 
+#         afinidade_list = []
+#         for j in range(quant_convidados):
+#             if (i==j):
+#                 afinidade_list.append(None)
+#                 continue
+#             f = festinhaFelas.get_edge_data(i,j)["afinidade"]
+#             afinidade_list.append(f)
+
+#         matrix_afinidade.append(afinidade_list)
+#     return matrix_afinidade
 
 
 def senta_Dupla (mesa,afin_max,pessoas,afinidade,ja_sentou):
