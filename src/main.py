@@ -100,7 +100,7 @@ for i in instancias:
 
   #INICIO DO VND
   start_time_vnd = time.time()
-  solucao_final_VND,ja_passou_mesa = VND(mesa,matrix_afinidade,ja_sentou,quant_convidados)
+  solucao_final_VND,ja_passou_mesa = VND(mesa,matrix_afinidade,ja_sentou,quant_convidados,r=3)
   end_time_vnd = time.time()
 
   vnd_List.append(solution(solucao_final_VND,matrix_afinidade))

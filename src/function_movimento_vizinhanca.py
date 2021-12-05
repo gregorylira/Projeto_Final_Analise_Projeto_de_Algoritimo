@@ -114,6 +114,8 @@ def Reinsertion (grafo,matrix_afinidade):
 
 
 
+
+
 def Mesa_furada(grafo,ja_sentou,matrix_afinidade,quant_convidados):
   copia_sentados = ja_sentou.copy()
   copia = grafo.copy()
@@ -165,9 +167,6 @@ def Mesa_furada(grafo,ja_sentou,matrix_afinidade,quant_convidados):
       execucoes = execucoes - 1
     
 
-  
-   
-    
     if (solution(copia,matrix_afinidade) > beneficio):
       return copia.copy()
     else:
