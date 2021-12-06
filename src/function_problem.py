@@ -19,35 +19,18 @@ def matrizAfinidade(quant_convidados,afinidade,pessoas,passei=[]):
             if (i==j):
                 afinidade_list.append(None)
                 continue
-            # festinhaFelas.add_edge(i,j)
             if ((i,j) in pessoas ):
-                # festinhaFelas.edges[i,j]["afinidade"] = afinidade[pessoas.index((i,j))]
-                # passei.append((j,i))
                 f = afinidade[pessoas.index((i,j))]
                 afinidade_list.append(f)
                 passei.append((i,j))
             else:
                 if((j,i) in pessoas):
                     afinidade_list.append(afinidade[pessoas.index((j,i))])
-                # festinhaFelas.edges[i,j]["afinidade"] = 0
+
                 else: afinidade_list.append(0)
         matrix_afinidade.append(afinidade_list)
     return matrix_afinidade
 
-# def Matriz_afinidade (festinhaFelas,quant_convidados):
-#     matrix_afinidade = []
-#     for i in range(quant_convidados):
-
-#         afinidade_list = []
-#         for j in range(quant_convidados):
-#             if (i==j):
-#                 afinidade_list.append(None)
-#                 continue
-#             f = festinhaFelas.get_edge_data(i,j)["afinidade"]
-#             afinidade_list.append(f)
-
-#         matrix_afinidade.append(afinidade_list)
-#     return matrix_afinidade
 
 
 def senta_Dupla (mesa,afin_max,pessoas,afinidade,ja_sentou):
