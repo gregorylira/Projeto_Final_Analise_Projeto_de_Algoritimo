@@ -9,7 +9,7 @@ def VND (mesa,matrix_afinidade,ja_sentou,quant_convidados,ja_passou_mesa = [], r
     if (k == 1):
       copia_VND = Reinsertion(mesa,matrix_afinidade)
     elif (k==2):
-      copia_VND,ja_passou_mesa = swap(mesa,matrix_afinidade,ja_passou_mesa)
+      copia_VND = swap(mesa,matrix_afinidade)
     elif (k==3):
       copia_VND = Mesa_furada(mesa,ja_sentou,matrix_afinidade,quant_convidados)
 
@@ -22,5 +22,5 @@ def VND (mesa,matrix_afinidade,ja_sentou,quant_convidados,ja_passou_mesa = [], r
 
     else:
       k +=1
-      
+
   return mesa.copy(),ja_passou_mesa

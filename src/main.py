@@ -135,14 +135,39 @@ for i in instancias:
   
   linha_ils.append([otimo_list_ils[interacao],ils_List[interacao],tempo_list_ils[interacao],gap_list_ils[interacao]])
 
+  heuristica = nx.Graph()
+  vnd = nx.Graph()
+  ils = nx.Graph()
+
+  for i in mesa.nodes:
+    heuristica.add_node(i)
+    for j in mesa.neighbors[i]:
+      heuristica.add_edge(i,j)
+  
+  for i in solucao_final_VND.nodes:
+    vnd.add_node(i)
+    for j in solucao_final_VND.neighbors[i]:
+      vnd.add_edge(i,j)
+  
+  for i in result_ils.nodes:
+    ils.add_node(i)
+    for j in result_ils.neighbors[i]:
+      ils.add_edge(i,j)
+
+
   plt.figure(figsize=(15, 15))
-  nx.draw(solucao_final_VND ,with_labels=True,node_color="black",node_size=3250,width=1.6, font_color="white",font_weight='bold' )
-  plt.savefig(f'../plots/solutions/instancia_{interacao}.png', format='png')
+  nx.draw(heuristica ,with_labels=True,node_color="black",node_size=3250,width=1.6, font_color="white",font_weight='bold' )
+  plt.savefig(f'../plots/heuristica/instancia_{interacao}.png', format='png')
   plt.close()
 
   plt.figure(figsize=(15, 15))
-  nx.draw(mesa ,with_labels=True,node_color="black",node_size=3250,width=1.6, font_color="white",font_weight='bold' )
-  plt.savefig(f'../plots/heuristica/instancia_{interacao}.png', format='png')
+  nx.draw(vnd ,with_labels=True,node_color="black",node_size=3250,width=1.6, font_color="white",font_weight='bold' )
+  plt.savefig(f'../plots/vnd/instancia_{interacao}.png', format='png')
+  plt.close()
+
+  plt.figure(figsize=(15, 15))
+  nx.draw(ils ,with_labels=True,node_color="black",node_size=3250,width=1.6, font_color="white",font_weight='bold' )
+  plt.savefig(f'../plots/ils/instancia_{interacao}.png', format='png')
   plt.close()
 
   index.append(f"instancia_{interacao}")
