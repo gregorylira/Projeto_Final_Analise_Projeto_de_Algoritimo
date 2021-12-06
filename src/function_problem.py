@@ -1,14 +1,13 @@
-import networkx as nx
 from function_tratamentos import *
-
+from classes import *
 
 def init_networkx (quant_mesas,lista_limite_mesa):
 
-    mesa = nx.Graph()
+    mesa = Graph()
 
     for i in range(quant_mesas):
-        mesa.add_node(f"mesa_{i}",menorCadeira = lista_limite_mesa[i][0], maiorCadeira = lista_limite_mesa[i][1])
-    
+        mesa.add_node(f"mesa_{i}",{"menorCadeira" : lista_limite_mesa[i][0], "maiorCadeira" : lista_limite_mesa[i][1]})
+        mesa.neighbors[f"mesa_{i}"] = []
     return mesa.copy()
 
 def matrizAfinidade(quant_convidados,afinidade,pessoas,passei=[]):
@@ -34,7 +33,7 @@ def matrizAfinidade(quant_convidados,afinidade,pessoas,passei=[]):
 
 
 def senta_Dupla (mesa,afin_max,pessoas,afinidade,ja_sentou):
-    for i in list(mesa):
+    for i in list(mesa.nodes):
         if (int(mesa.nodes[i]["menorCadeira"]/2)):
           while(1):
               maior = afin_max.pop(0)
@@ -70,7 +69,7 @@ def senta_Dupla (mesa,afin_max,pessoas,afinidade,ja_sentou):
 
 def senta_pessoa(ja_sentou ,quant_convidados,mesa,matrix_afinidade):
     while(len(ja_sentou)<quant_convidados):
-        for i in list(mesa):
+        for i in list(mesa.nodes):
             maior_soma = -999
             if (not isinstance(i, str)):
                 break
@@ -81,6 +80,8 @@ def senta_pessoa(ja_sentou ,quant_convidados,mesa,matrix_afinidade):
                     else:
                         soma = 0
                         for k in (nodes_edg(i,mesa)):
+                            if (not matrix_afinidade[j][k]):
+                                continue
                             soma += matrix_afinidade[j][k]
 
                         if(soma> maior_soma):
