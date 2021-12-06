@@ -34,7 +34,7 @@ def Perturbacao(grafo,nivel = 1):
 def ILS (execucoes,vnd_teste,matrix_afinidade,ja_sentou,quant_convidados,ja_passou_mesa = []):
   copia_vnd_teste = vnd_teste.copy()
 
-  execucoes = 8
+  execucoes = 3
   melhor_dos_melhores = 0
   
   while(execucoes > 0):
