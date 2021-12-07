@@ -1,7 +1,7 @@
 from function_movimento_vizinhanca import *
 from function_tratamentos import *
 
-def VND (mesa,matrix_afinidade,ja_sentou,quant_convidados,ja_passou_mesa = [], r=3):
+def VND (mesa,matrix_afinidade,ja_sentou,quant_convidados, r=3):
   k = 1
   
   maior_beneficio = solution(mesa,matrix_afinidade)
@@ -23,4 +23,4 @@ def VND (mesa,matrix_afinidade,ja_sentou,quant_convidados,ja_passou_mesa = [], r
     else:
       k +=1
 
-  return mesa.copy(),ja_passou_mesa
+  return mesa.copy()
